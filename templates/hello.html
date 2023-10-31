@@ -1,15 +1,75 @@
-<!-- templates/hello.html -->
 <!DOCTYPE html>
-<html>
-<title>Hello from Fly.io</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<html lang="en">  
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flask Template with Components</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script>
+    function fillInput() {
+      document.querySelector('[name="user_story"]').value = "As a Covered Member, I want to submit a short term disability claim.";
+    }
+  </script>
+</head>
 
 <body>
-  {% if name %}
-  <h1>Hello, {{ name | capitalize }}!</h1>
-  {% else %}
-  <h1>Hello, World!</h1>
-  {% endif %}
+
+  <div class="container mt-5">
+
+    <button type="button" class="btn btn-secondary mt-2" onclick="fillInput()">Add Placeholder User Story</button>
+
+
+    <div class="row">
+
+
+      <!-- Left Component -->
+      <div class="col-md-6">
+        <div class="left-component p-3 border">
+          
+          <form action="" method="post">
+            <div class="form-group">
+              <textarea class="form-control" rows="6" placeholder="Enter user story here" name="user_story"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right Component with Tabs -->
+      <div class="col-md-6">
+        <div class="right-component p-3 border">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#tab1">Tab 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#tab2">Tab 2</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#tab3">Tab 3</a>
+            </li>
+          </ul>
+
+          <!-- Tab Content -->
+          <div class="tab-content mt-3">
+
+            <div class="tab-pane container active" id="tab1">
+              {{ response_text }}
+            </div>
+            <div class="tab-pane container fade" id="tab2">Content of Tab 2</div>
+            <div class="tab-pane container fade" id="tab3">Content of Tab 3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
