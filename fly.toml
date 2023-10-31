@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for snowy-fire-9961 on 2023-10-30T12:36:17-04:00
+# fly.toml app configuration file generated for shy-silence-154 on 2023-10-31T09:25:42-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "snowy-fire-9961"
+app = "shy-silence-154"
 primary_region = "bos"
 
 [build]
