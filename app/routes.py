@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, render_template, request
 from .services.openai_service import get_user_story_data_analysis, get_story_ui_analysis
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/api", methods=["GET"])
