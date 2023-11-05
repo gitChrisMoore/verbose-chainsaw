@@ -41,16 +41,20 @@ def get_openai_response(messages):
         return ""
 
 
-def parse_score(raw_string):
+def parse_score(text):
     """
     Parses the score from the OpenAI response.
     """
-    pattern = r"__@score__(.*?)__@endscore__"
-    match = re.search(pattern, raw_string)
+    # pattern = r"###score_b(.*?)###score_e"
+
+    # match = re.search(pattern, raw_string)
+    match = re.search(r"(?<=###score_b\n)\d+(?=\n###score_e)", text)
+    print(match)
+
     if match:
-        print(match.group(1))
-        return match.group(1)
+        return match.group()
     else:
+        print("no score found")
         return 0
 
 
@@ -134,5 +138,31 @@ def get_story_ui_analysis(user_story):
     openai_res = get_openai_response(previous_messages)
     res["score"] = parse_score(openai_res)
     res["suggestions"] = parse_suggestions(openai_res)
+
+    return res
+
+
+def get_story_data_reccomendation(user_story):
+    """
+    Returns the response from OpenAI API for the given user story.
+    """
+
+    res = {
+        "updated_story": "",
+    }
+    previous_messages = [
+        {
+            "role": "system",
+            "content": 'You are a Business Data Analyst, and your job is to update the story regard data.  You should add a list of fields, whether or not they are required, and any other information that is important. Provide as a response the original story, with your edits under the "**Data Context**.',
+        },
+        {
+            "role": "user",
+            "content": user_story,
+        },
+    ]
+
+    openai_res = get_openai_response(previous_messages)
+    print(openai_res)
+    res["updated_story"] = openai_res
 
     return res
