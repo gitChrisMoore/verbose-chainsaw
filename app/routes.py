@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 from .services.openai_service import (
+    get_story_data_acceptance_criteria,
     get_user_story_data_analysis,
     get_story_ui_analysis,
     get_story_data_reccomendation,
@@ -68,6 +69,26 @@ def get_data_reccomendation():
     try:
         # Try to analyze the user_story.
         data = get_story_data_reccomendation(user_story)
+        return jsonify(data), 200
+    except Exception as e:
+        # Handle any unexpected errors during analysis.
+        return jsonify({"error": f"An error occurred: {str(e)}"}), 500
+
+
+@app.route("/api/story/data-acceptance-criteria", methods=["POST"])
+def get_data_acceptance_criteria():
+    user_story = request.get_json().get("user_story")
+
+    # Check if the user_story is valid.
+    if not isinstance(user_story, str):
+        return jsonify({"error": "User story must be a string."}), 400
+    if len(user_story) <= 3:
+        return jsonify({"error": "User story is too short."}), 400
+
+    try:
+        # Try to analyze the user_story.
+        data = get_story_data_acceptance_criteria(user_story)
+        print(data)
         return jsonify(data), 200
     except Exception as e:
         # Handle any unexpected errors during analysis.
