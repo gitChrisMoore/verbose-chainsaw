@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template, request
+
+from app.services.openai_service_json import get_story_data_acceptance_criteria
 from .services.openai_service import (
-    get_story_data_acceptance_criteria,
     get_user_story_data_analysis,
     get_story_ui_analysis,
     get_story_data_reccomendation,
